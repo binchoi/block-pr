@@ -8,16 +8,9 @@ jobs:
   check-and-close:
     runs-on: ubuntu-latest
     steps:
-      - name: Check if repo_type is upstream
-        id: check_repo_type
-        run: echo "repo_type=${{ secrets.REPO_TYPE }}" >> $GITHUB_ENV
-
-      - name: Close Pull Request if repo_type is upstream
-        if: env.repo_type == 'upstream'
+      - name: Close Pull Request
+        if: ${{ github.event.repository.fork == false }}
         uses: superbrothers/close-pull-request@v3
         with:
-          comment: "This pull request has been automatically closed because it was opened in the upstream repository. Create your PR within your own forked repository."
-
-      - name: Skip Closing if repo_type is not upstream
-        if: env.repo_type != 'upstream'
-        run: echo "The pull request will remain open as the repo_type is not 'upstream'."
+          comment: "This pull request has been automatically closed because it was opened in the upstream repository. Create your PRs within your own forked repository."
+          github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
