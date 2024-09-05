@@ -13,4 +13,3 @@ jobs:
         uses: superbrothers/close-pull-request@v3
         with:
           comment: "This pull request has been automatically closed because it was opened in the upstream repository. Create your PRs within your own forked repository."
-          github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
